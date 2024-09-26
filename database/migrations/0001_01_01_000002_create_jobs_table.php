@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
-            $table->string('queue')->index();
-            $table->longText('payload');
+            $table->string('queue', 191)->index(); // Tamanho ajustado
+            $table->longText('payload'); // Sem ajuste, tamanho adequado
             $table->unsignedTinyInteger('attempts');
             $table->unsignedInteger('reserved_at')->nullable();
             $table->unsignedInteger('available_at');
@@ -22,26 +22,26 @@ return new class extends Migration
         });
 
         Schema::create('job_batches', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->string('name');
+            $table->string('id', 191)->primary(); // Tamanho ajustado
+            $table->string('name', 191); // Tamanho ajustado
             $table->integer('total_jobs');
             $table->integer('pending_jobs');
             $table->integer('failed_jobs');
-            $table->longText('failed_job_ids');
-            $table->mediumText('options')->nullable();
-            $table->integer('cancelled_at')->nullable();
-            $table->integer('created_at');
-            $table->integer('finished_at')->nullable();
+            $table->longText('failed_job_ids'); // Sem ajuste, tamanho adequado
+            $table->mediumText('options')->nullable(); // Sem ajuste, tamanho adequado
+            $table->unsignedInteger('cancelled_at')->nullable(); // Ajustado para unsigned
+            $table->unsignedInteger('created_at'); // Ajustado para unsigned
+            $table->unsignedInteger('finished_at')->nullable(); // Ajustado para unsigned
         });
 
         Schema::create('failed_jobs', function (Blueprint $table) {
             $table->id();
-            $table->string('uuid')->unique();
-            $table->text('connection');
-            $table->text('queue');
-            $table->longText('payload');
-            $table->longText('exception');
-            $table->timestamp('failed_at')->useCurrent();
+            $table->string('uuid', 191)->unique(); // Tamanho ajustado
+            $table->text('connection'); // Sem ajuste, tamanho adequado
+            $table->text('queue'); // Sem ajuste, tamanho adequado
+            $table->longText('payload'); // Sem ajuste, tamanho adequado
+            $table->longText('exception'); // Sem ajuste, tamanho adequado
+            $table->timestamp('failed_at')->useCurrent(); // Sem ajuste
         });
     }
 
