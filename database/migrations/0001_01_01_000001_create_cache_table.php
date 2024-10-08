@@ -12,21 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('cache', function (Blueprint $table) {
-            $table->string('key', 191)->primary(); // Ajustando o tamanho do key
-            $table->mediumText('value'); // O mediumText não precisa de tamanho especificado
-            $table->integer('expiration'); // O tamanho padrão é suficiente
-        });
+            $table->string('key', 191)->primary(); 
+            $table->mediumText('value');
+            $table->integer('expiration');
 
         Schema::create('cache_locks', function (Blueprint $table) {
-            $table->string('key', 191)->primary(); // Ajustando o tamanho do key
-            $table->string('owner', 191); // Ajustando o tamanho do owner
-            $table->integer('expiration'); // O tamanho padrão é suficiente
+            $table->string('key', 191)->primary();
+            $table->string('owner', 191);
+            $table->integer('expiration'); 
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('cache');
